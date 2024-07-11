@@ -24,6 +24,8 @@ class WarmupLR(_LRScheduler):
         self._format_param()
 
     def __getattr__(self, name):
+        if '_scheduler' not in self.__dict__:
+            raise AttributeError(f"'WarmupLR' object has no attribute '{name}'")
         return getattr(self._scheduler, name)
     
     def state_dict(self):
