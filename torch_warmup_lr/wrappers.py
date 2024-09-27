@@ -34,7 +34,7 @@ class WarmupLR(_LRScheduler):
         It contains an entry for every variable in self.__dict__ which
         is not the optimizer.
         """
-        wrapper_state_dict = {key: value for key, value in self.__dict__.items() if (key != 'optimizer' and key !='_scheduler')}
+        wrapper_state_dict = {key: value for key, value in self.__dict__.items() if (key not in ['optimizer', '_scheduler', '_warmup_func'])}
         wrapped_state_dict = {key: value for key, value in self._scheduler.__dict__.items() if key != 'optimizer'} 
         return {'wrapped': wrapped_state_dict, 'wrapper': wrapper_state_dict}
     
